@@ -19,20 +19,12 @@ var WIZARD_SURNAME = [' да Марья', ' Верон', ' Мирабелла', 
 var WIZARD_COAT_COLOR = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var WIZARD_EYES_COLOR = ['black', 'red', 'blue', 'yellow', 'green'];
 
-// var wizardNamesRandom = WIZARD_NAMES[getRandomInt(0, WIZARD_NAMES.length - 1)] + WIZARD_SURNAME[getRandomInt(0, WIZARD_SURNAME.length - 1)];
-// var wizardCoatColor = WIZARD_COAT_COLOR[getRandomInt(0, WIZARD_COAT_COLOR.length - 1)];
-// var wizardEyesColor = WIZARD_EYES_COLOR[getRandomInt(0, WIZARD_EYES_COLOR.length - 1)];
-
-// console.log();
 var wizards = [];
 
 var renderWizard = function (wizard) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
-  wizard.name = WIZARD_NAMES[getRandomInt(0, WIZARD_NAMES.length - 1)] + WIZARD_SURNAME[getRandomInt(0, WIZARD_SURNAME.length - 1)];
-  wizard.coatColor = WIZARD_COAT_COLOR[getRandomInt(0, WIZARD_COAT_COLOR.length - 1)];
-  wizard.eyesColor = WIZARD_EYES_COLOR[getRandomInt(0, WIZARD_EYES_COLOR.length - 1)];
 
-  wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
+  wizardElement.querySelector('.setup-similar-label').textContent = wizard.name + wizard.surname;
   wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
   wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
 
@@ -42,14 +34,17 @@ var renderWizard = function (wizard) {
 var fragment = document.createDocumentFragment();
 for (var i = 0; i < 4; i++) {
 
-  wizards[i] = {
-    name: WIZARD_NAMES[i],
-    coatColor: WIZARD_COAT_COLOR[i],
-    eyesColor: WIZARD_EYES_COLOR[i]
+  wizards = {
+    name: WIZARD_NAMES[getRandomInt(0, WIZARD_NAMES.length - 1)],
+    surname: WIZARD_SURNAME[getRandomInt(0, WIZARD_SURNAME.length - 1)],
+    coatColor: WIZARD_COAT_COLOR[getRandomInt(0, WIZARD_COAT_COLOR.length - 1)],
+    eyesColor: WIZARD_EYES_COLOR[getRandomInt(0, WIZARD_EYES_COLOR.length - 1)]
   };
 
   fragment.appendChild(renderWizard(wizards));
+
 }
+
 similarListElement.appendChild(fragment);
 
 
