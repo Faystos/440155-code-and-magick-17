@@ -19,8 +19,6 @@ var WIZARD_SURNAME = [' да Марья', ' Верон', ' Мирабелла', 
 var WIZARD_COAT_COLOR = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var WIZARD_EYES_COLOR = ['black', 'red', 'blue', 'yellow', 'green'];
 
-var wizards = [];
-
 var renderWizard = function (wizard) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
 
@@ -34,7 +32,7 @@ var renderWizard = function (wizard) {
 var fragment = document.createDocumentFragment();
 for (var i = 0; i < 4; i++) {
 
-  wizards = {
+  var wizards = {
     name: WIZARD_NAMES[getRandomInt(0, WIZARD_NAMES.length - 1)],
     surname: WIZARD_SURNAME[getRandomInt(0, WIZARD_SURNAME.length - 1)],
     coatColor: WIZARD_COAT_COLOR[getRandomInt(0, WIZARD_COAT_COLOR.length - 1)],
