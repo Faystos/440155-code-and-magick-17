@@ -32,14 +32,14 @@ var renderWizard = function (wizard) {
 var fragment = document.createDocumentFragment();
 for (var i = 0; i < 4; i++) {
 
-  var wizards = {
+  var wizard = {
     name: WIZARD_NAMES[getRandomInt(0, WIZARD_NAMES.length - 1)],
     surname: WIZARD_SURNAME[getRandomInt(0, WIZARD_SURNAME.length - 1)],
     coatColor: WIZARD_COAT_COLOR[getRandomInt(0, WIZARD_COAT_COLOR.length - 1)],
     eyesColor: WIZARD_EYES_COLOR[getRandomInt(0, WIZARD_EYES_COLOR.length - 1)]
   };
 
-  fragment.appendChild(renderWizard(wizards));
+  fragment.appendChild(renderWizard(wizard));
 
 }
 
