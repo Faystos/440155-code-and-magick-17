@@ -1,7 +1,6 @@
 'use strict';
-
 var userDialog = document.querySelector('.setup');
-userDialog.classList.remove('hidden');
+// userDialog.classList.remove('hidden');
 
 document.querySelector('.setup-similar').classList.remove('hidden');
 
@@ -47,3 +46,73 @@ similarListElement.appendChild(fragment);
 
 
 userDialog.querySelector('.setup-similar').classList.remove('hidden');
+
+//  ********************************************************************
+
+// Открываем и закрываем блок настроек персонажа
+
+var setupOpen = document.querySelector('.setup-open');
+var setupClose = userDialog.querySelector('.setup-close');
+
+var handlerClickSetupOpen = function (evt) {
+  evt.preventDefault();
+  userDialog.classList.remove('hidden');
+};
+
+var handlerClickSetupClose = function (evt) {
+  evt.preventDefault();
+  userDialog.classList.add('hidden');
+};
+
+setupOpen.addEventListener('click', handlerClickSetupOpen);
+setupClose.addEventListener('click', handlerClickSetupClose);
+
+// ************************************************************************
+
+// Изменяем цвет fireball «огненный шар»
+// var setupFireball = userDialog.querySelector('.setup-fireball');
+var setupFireballWrap = userDialog.querySelector('.setup-fireball-wrap');
+var COLORSFIREBALLS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
+var countPress = 0;
+
+var handlerClickSetupFireball = function (evt) {
+  evt.preventDefault();
+  setupFireballWrap.style.background = COLORSFIREBALLS[countPress];
+  countPress++;
+  if (countPress === COLORSFIREBALLS.length) {
+    countPress = 0;
+  }
+};
+
+setupFireballWrap.addEventListener('click', handlerClickSetupFireball);
+
+// ************************************************************************
+
+// Меняем цвет глаз Визарда
+var setupWizard = document.querySelector('.setup-wizard');
+var wizardEyes = setupWizard.querySelector('.wizard-eyes');
+
+var handlerClickSetupWizardEyes = function (evt) {
+  evt.preventDefault();
+
+  wizardEyes.style.fill = WIZARD_EYES_COLOR[countPress];
+  countPress++;
+  if (countPress === WIZARD_EYES_COLOR.length) {
+    countPress = 0;
+  }
+};
+
+setupWizard.addEventListener('click', handlerClickSetupWizardEyes);
+// ************************************************************************
+
+// Меняем цвет плаща произвольным свойством
+var wizardCoat = setupWizard.querySelector('.wizard-coat');
+
+var handlerClickSetupWizardCoat = function (evt) {
+  evt.preventDefault();
+  wizardCoat.style.fill = (WIZARD_COAT_COLOR[getRandomInt(0, WIZARD_COAT_COLOR.length - 1)]);
+};
+
+setupWizard.addEventListener('click', handlerClickSetupWizardCoat);
+
+// ************************************************************************
