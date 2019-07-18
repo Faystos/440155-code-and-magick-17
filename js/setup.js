@@ -1,6 +1,5 @@
 'use strict';
 var userDialog = document.querySelector('.setup');
-// userDialog.classList.remove('hidden');
 
 document.querySelector('.setup-similar').classList.remove('hidden');
 
@@ -95,21 +94,14 @@ var handlerKeydownSetupClose2 = function (evt) {
   }
 };
 
-// var handlerKeydownInputName = function () {
-//   if (inputName.focus) {
-//     console.log('not focus');
-//   }
-// };
-
 setupOpen.addEventListener('keydown', handlerKeydownSetupOpen);
 setupClose.addEventListener('keydown', handlerKeydownSetupClose2);
 document.addEventListener('keydown', handlerKeydownSetupClose);
-// inputName.addEventListener('focus', handlerKeydownInputName);
 
 // ************************************************************************
 
 // Изменяем цвет fireball «огненный шар»
-// var setupFireball = userDialog.querySelector('.setup-fireball');
+
 var setupFireballWrap = userDialog.querySelector('.setup-fireball-wrap');
 var COLORSFIREBALLS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 var countPress = 0;
