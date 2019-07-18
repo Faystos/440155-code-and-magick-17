@@ -49,10 +49,13 @@ userDialog.querySelector('.setup-similar').classList.remove('hidden');
 
 //  ********************************************************************
 
-// Открываем и закрываем блок настроек персонажа
+// Открываем и закрываем блок настроек персонажа мышкой
 
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = userDialog.querySelector('.setup-close');
+var inputName = userDialog.querySelector('.setup-user-name');
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
 
 var handlerClickSetupOpen = function (evt) {
   evt.preventDefault();
@@ -66,6 +69,42 @@ var handlerClickSetupClose = function (evt) {
 
 setupOpen.addEventListener('click', handlerClickSetupOpen);
 setupClose.addEventListener('click', handlerClickSetupClose);
+
+// Открываем и закрываем блок настроек персонажа клавой
+
+var handlerKeydownSetupOpen = function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    userDialog.classList.remove('hidden');
+  }
+};
+
+var handlerKeydownSetupClose = function (evt) {
+  if (inputName === document.activeElement) {
+    return;
+  } else {
+    if (evt.keyCode === ESC_KEYCODE) {
+      userDialog.classList.add('hidden');
+    }
+  }
+};
+
+
+var handlerKeydownSetupClose2 = function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    userDialog.classList.add('hidden');
+  }
+};
+
+// var handlerKeydownInputName = function () {
+//   if (inputName.focus) {
+//     console.log('not focus');
+//   }
+// };
+
+setupOpen.addEventListener('keydown', handlerKeydownSetupOpen);
+setupClose.addEventListener('keydown', handlerKeydownSetupClose2);
+document.addEventListener('keydown', handlerKeydownSetupClose);
+// inputName.addEventListener('focus', handlerKeydownInputName);
 
 // ************************************************************************
 
