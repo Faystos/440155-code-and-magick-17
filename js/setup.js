@@ -80,10 +80,8 @@ var handlerKeydownSetupOpen = function (evt) {
 var handlerKeydownSetupClose = function (evt) {
   if (inputName === document.activeElement) {
     return;
-  } else {
-    if (evt.keyCode === ESC_KEYCODE) {
-      userDialog.classList.add('hidden');
-    }
+  } else if (evt.keyCode === ESC_KEYCODE) {
+    userDialog.classList.add('hidden');
   }
 };
 
