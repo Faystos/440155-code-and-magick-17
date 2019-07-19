@@ -1,7 +1,5 @@
 'use strict';
-
 var userDialog = document.querySelector('.setup');
-userDialog.classList.remove('hidden');
 
 document.querySelector('.setup-similar').classList.remove('hidden');
 
@@ -47,3 +45,103 @@ similarListElement.appendChild(fragment);
 
 
 userDialog.querySelector('.setup-similar').classList.remove('hidden');
+
+//  ********************************************************************
+
+// Открываем и закрываем блок настроек персонажа мышкой
+
+var setupOpen = document.querySelector('.setup-open');
+var setupClose = userDialog.querySelector('.setup-close');
+var inputName = userDialog.querySelector('.setup-user-name');
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
+
+var handlerClickSetupOpen = function (evt) {
+  evt.preventDefault();
+  userDialog.classList.remove('hidden');
+};
+
+var handlerClickSetupClose = function (evt) {
+  evt.preventDefault();
+  userDialog.classList.add('hidden');
+};
+
+setupOpen.addEventListener('click', handlerClickSetupOpen);
+setupClose.addEventListener('click', handlerClickSetupClose);
+
+// Открываем и закрываем блок настроек персонажа клавой
+
+var handlerKeydownSetupOpen = function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    userDialog.classList.remove('hidden');
+  }
+};
+
+var handlerKeydownSetupClose = function (evt) {
+  if (inputName === document.activeElement) {
+    return;
+  } else if (evt.keyCode === ESC_KEYCODE) {
+    userDialog.classList.add('hidden');
+  }
+};
+
+
+var handlerKeydownSetupClose2 = function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    userDialog.classList.add('hidden');
+  }
+};
+
+setupOpen.addEventListener('keydown', handlerKeydownSetupOpen);
+setupClose.addEventListener('keydown', handlerKeydownSetupClose2);
+document.addEventListener('keydown', handlerKeydownSetupClose);
+
+// ************************************************************************
+
+// Изменяем цвет fireball «огненный шар»
+
+var setupFireballWrap = userDialog.querySelector('.setup-fireball-wrap');
+var COLORSFIREBALLS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
+var countPress = 0;
+
+var handlerClickSetupFireball = function (evt) {
+  evt.preventDefault();
+  setupFireballWrap.style.background = COLORSFIREBALLS[countPress];
+  countPress++;
+  if (countPress === COLORSFIREBALLS.length) {
+    countPress = 0;
+  }
+};
+
+setupFireballWrap.addEventListener('click', handlerClickSetupFireball);
+
+// ************************************************************************
+
+// Меняем цвет глаз Визарда
+var setupWizard = document.querySelector('.setup-wizard');
+var wizardEyes = setupWizard.querySelector('.wizard-eyes');
+
+var handlerClickSetupWizardEyes = function (evt) {
+  evt.preventDefault();
+
+  wizardEyes.style.fill = WIZARD_EYES_COLOR[countPress];
+  countPress++;
+  if (countPress === WIZARD_EYES_COLOR.length) {
+    countPress = 0;
+  }
+};
+
+setupWizard.addEventListener('click', handlerClickSetupWizardEyes);
+// ************************************************************************
+
+// Меняем цвет плаща произвольным свойством
+var wizardCoat = setupWizard.querySelector('.wizard-coat');
+
+var handlerClickSetupWizardCoat = function (evt) {
+  evt.preventDefault();
+  wizardCoat.style.fill = (WIZARD_COAT_COLOR[getRandomInt(0, WIZARD_COAT_COLOR.length - 1)]);
+};
+
+setupWizard.addEventListener('click', handlerClickSetupWizardCoat);
+
+// ************************************************************************
