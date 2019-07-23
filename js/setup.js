@@ -1,6 +1,7 @@
 'use strict';
 var userDialog = document.querySelector('.setup');
 
+
 document.querySelector('.setup-similar').classList.remove('hidden');
 
 var similarListElement = document.querySelector('.setup-similar-list');
@@ -55,6 +56,8 @@ var setupClose = userDialog.querySelector('.setup-close');
 var inputName = userDialog.querySelector('.setup-user-name');
 var ESC_KEYCODE = 27;
 var ENTER_KEYCODE = 13;
+var defCoordsX = userDialog.style.left;
+var defCoordsY = userDialog.style.top;
 
 var handlerClickSetupOpen = function (evt) {
   evt.preventDefault();
@@ -64,6 +67,8 @@ var handlerClickSetupOpen = function (evt) {
 var handlerClickSetupClose = function (evt) {
   evt.preventDefault();
   userDialog.classList.add('hidden');
+  userDialog.style.left = defCoordsY;
+  userDialog.style.top = defCoordsX;
 };
 
 setupOpen.addEventListener('click', handlerClickSetupOpen);
