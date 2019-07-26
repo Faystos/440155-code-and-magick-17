@@ -1,152 +1,136 @@
 'use strict';
-var userDialog = document.querySelector('.setup');
 
+(function () {
 
-document.querySelector('.setup-similar').classList.remove('hidden');
+  document.querySelector('.setup-similar').classList.remove('hidden');
 
-var similarListElement = document.querySelector('.setup-similar-list');
-var similarWizardTemplate = document.querySelector('#similar-wizard-template')
-    .content
-    .querySelector('.setup-similar-item');
+  var similarWizardTemplate = document.querySelector('#similar-wizard-template')
+      .content
+      .querySelector('.setup-similar-item');
 
-var getRandomInt = function (min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-
-var WIZARD_NAMES = ['Иван', 'Хуан', 'Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-var WIZARD_SURNAME = [' да Марья', ' Верон', ' Мирабелла', ' Вальц', ' Онопко', ' Топольницкая', ' Нионго', ' Ирвинг'];
-var WIZARD_COAT_COLOR = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
-var WIZARD_EYES_COLOR = ['black', 'red', 'blue', 'yellow', 'green'];
-
-var renderWizard = function (wizard) {
-  var wizardElement = similarWizardTemplate.cloneNode(true);
-
-  wizardElement.querySelector('.setup-similar-label').textContent = wizard.name + wizard.surname;
-  wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
-  wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
-
-  return wizardElement;
-};
-
-var fragment = document.createDocumentFragment();
-for (var i = 0; i < 4; i++) {
-
-  var wizard = {
-    name: WIZARD_NAMES[getRandomInt(0, WIZARD_NAMES.length - 1)],
-    surname: WIZARD_SURNAME[getRandomInt(0, WIZARD_SURNAME.length - 1)],
-    coatColor: WIZARD_COAT_COLOR[getRandomInt(0, WIZARD_COAT_COLOR.length - 1)],
-    eyesColor: WIZARD_EYES_COLOR[getRandomInt(0, WIZARD_EYES_COLOR.length - 1)]
+  window.getRandomInt = function (min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   };
 
-  fragment.appendChild(renderWizard(wizard));
+  var renderWizard = function (wizard) {
+    var wizardElement = similarWizardTemplate.cloneNode(true);
 
-}
+    wizardElement.querySelector('.setup-similar-label').textContent = wizard.name + wizard.surname;
+    wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
+    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
 
-similarListElement.appendChild(fragment);
+    return wizardElement;
+  };
+
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < 4; i++) {
+
+    var wizard = {
+      name: window.data.WIZARD_NAMES[window.getRandomInt(0, window.data.WIZARD_NAMES.length - 1)],
+      surname: window.data.WIZARD_SURNAME[window.getRandomInt(0, window.data.WIZARD_SURNAME.length - 1)],
+      coatColor: window.data.WIZARD_COAT_COLOR[window.getRandomInt(0, window.data.WIZARD_COAT_COLOR.length - 1)],
+      eyesColor: window.data.WIZARD_EYES_COLOR[window.getRandomInt(0, window.data.WIZARD_EYES_COLOR.length - 1)]
+    };
+
+    fragment.appendChild(renderWizard(wizard));
+
+  }
+
+  window.data.similarListElement.appendChild(fragment);
 
 
-userDialog.querySelector('.setup-similar').classList.remove('hidden');
+  window.data.userDialog.querySelector('.setup-similar').classList.remove('hidden');
+})();
+
 
 //  ********************************************************************
 
 // Открываем и закрываем блок настроек персонажа мышкой
+(function () {
 
-var setupOpen = document.querySelector('.setup-open');
-var setupClose = userDialog.querySelector('.setup-close');
-var inputName = userDialog.querySelector('.setup-user-name');
-var ESC_KEYCODE = 27;
-var ENTER_KEYCODE = 13;
-var defCoordsX = userDialog.style.left;
-var defCoordsY = userDialog.style.top;
+  var handlerClickSetupOpen = function (evt) {
+    evt.preventDefault();
+    window.data.userDialog.classList.remove('hidden');
+  };
 
-var handlerClickSetupOpen = function (evt) {
-  evt.preventDefault();
-  userDialog.classList.remove('hidden');
-};
+  var handlerClickSetupClose = function (evt) {
+    evt.preventDefault();
+    window.data.userDialog.classList.add('hidden');
+    window.data.userDialog.style.left = window.data.defCoordsY;
+    window.data.userDialog.style.top = window.data.defCoordsX;
+  };
 
-var handlerClickSetupClose = function (evt) {
-  evt.preventDefault();
-  userDialog.classList.add('hidden');
-  userDialog.style.left = defCoordsY;
-  userDialog.style.top = defCoordsX;
-};
+  window.data.setupOpen.addEventListener('click', handlerClickSetupOpen);
+  window.data.setupClose.addEventListener('click', handlerClickSetupClose);
 
-setupOpen.addEventListener('click', handlerClickSetupOpen);
-setupClose.addEventListener('click', handlerClickSetupClose);
+  // Открываем и закрываем блок настроек персонажа клавой
 
-// Открываем и закрываем блок настроек персонажа клавой
+  var handlerKeydownSetupOpen = function (evt) {
+    if (evt.keyCode === window.data.ENTER_KEYCODE) {
+      window.data.userDialog.classList.remove('hidden');
+    }
+  };
 
-var handlerKeydownSetupOpen = function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
-    userDialog.classList.remove('hidden');
-  }
-};
+  var handlerKeydownSetupClose = function (evt) {
+    if (window.data.inputName === document.activeElement) {
+      return;
+    } else if (evt.keyCode === window.data.ESC_KEYCODE) {
+      window.data.userDialog.classList.add('hidden');
+    }
+  };
 
-var handlerKeydownSetupClose = function (evt) {
-  if (inputName === document.activeElement) {
-    return;
-  } else if (evt.keyCode === ESC_KEYCODE) {
-    userDialog.classList.add('hidden');
-  }
-};
+  var handlerKeydownSetupClose2 = function (evt) {
+    if (evt.keyCode === window.data.ENTER_KEYCODE) {
+      window.data.userDialog.classList.add('hidden');
+    }
+  };
 
-
-var handlerKeydownSetupClose2 = function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
-    userDialog.classList.add('hidden');
-  }
-};
-
-setupOpen.addEventListener('keydown', handlerKeydownSetupOpen);
-setupClose.addEventListener('keydown', handlerKeydownSetupClose2);
-document.addEventListener('keydown', handlerKeydownSetupClose);
-
+  window.data.setupOpen.addEventListener('keydown', handlerKeydownSetupOpen);
+  window.data.setupClose.addEventListener('keydown', handlerKeydownSetupClose2);
+  document.addEventListener('keydown', handlerKeydownSetupClose);
+})();
 // ************************************************************************
 
 // Изменяем цвет fireball «огненный шар»
+(function () {
+  // var COLORSFIREBALLS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 
-var setupFireballWrap = userDialog.querySelector('.setup-fireball-wrap');
-var COLORSFIREBALLS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
-var countPress = 0;
+  var handlerClickSetupFireball = function (evt) {
+    evt.preventDefault();
+    window.data.setupFireballWrap.style.background = window.data.COLORSFIREBALLS[window.data.countPress];
+    window.data.countPress++;
+    if (window.data.countPress === window.data.COLORSFIREBALLS.length) {
+      window.data.countPress = 0;
+    }
+  };
 
-var handlerClickSetupFireball = function (evt) {
-  evt.preventDefault();
-  setupFireballWrap.style.background = COLORSFIREBALLS[countPress];
-  countPress++;
-  if (countPress === COLORSFIREBALLS.length) {
-    countPress = 0;
-  }
-};
-
-setupFireballWrap.addEventListener('click', handlerClickSetupFireball);
-
+  window.data.setupFireballWrap.addEventListener('click', handlerClickSetupFireball);
+})();
 // ************************************************************************
 
 // Меняем цвет глаз Визарда
-var setupWizard = document.querySelector('.setup-wizard');
-var wizardEyes = setupWizard.querySelector('.wizard-eyes');
+(function () {
+  var handlerClickSetupWizardEyes = function (evt) {
+    evt.preventDefault();
 
-var handlerClickSetupWizardEyes = function (evt) {
-  evt.preventDefault();
+    window.data.wizardEyes.style.fill = window.data.WIZARD_EYES_COLOR[window.data.countPress];
+    window.data.countPress++;
+    if (window.data.countPress === window.data.WIZARD_EYES_COLOR.length) {
+      window.data.countPress = 0;
+    }
+  };
 
-  wizardEyes.style.fill = WIZARD_EYES_COLOR[countPress];
-  countPress++;
-  if (countPress === WIZARD_EYES_COLOR.length) {
-    countPress = 0;
-  }
-};
-
-setupWizard.addEventListener('click', handlerClickSetupWizardEyes);
+  window.data.setupWizard.addEventListener('click', handlerClickSetupWizardEyes);
+})();
 // ************************************************************************
 
 // Меняем цвет плаща произвольным свойством
-var wizardCoat = setupWizard.querySelector('.wizard-coat');
+(function () {
+  var handlerClickSetupWizardCoat = function (evt) {
+    evt.preventDefault();
+    window.data.wizardCoat.style.fill = (window.data.WIZARD_COAT_COLOR[window.getRandomInt(0, window.data.WIZARD_COAT_COLOR.length - 1)]);
+  };
 
-var handlerClickSetupWizardCoat = function (evt) {
-  evt.preventDefault();
-  wizardCoat.style.fill = (WIZARD_COAT_COLOR[getRandomInt(0, WIZARD_COAT_COLOR.length - 1)]);
-};
-
-setupWizard.addEventListener('click', handlerClickSetupWizardCoat);
-
+  window.data.setupWizard.addEventListener('click', handlerClickSetupWizardCoat);
+})();
 // ************************************************************************

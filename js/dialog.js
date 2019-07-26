@@ -1,19 +1,13 @@
 'use strict';
 
 (function () {
-
 // Перетаскивам окно настроек визардв
-
-  var setupDialogElement = document.querySelector('.setup');
-  var dialogHandler = setupDialogElement.querySelector('.upload');
-
 
   var onClickPreventDefault = function (evt) {
     evt.preventDefault();
 
-    dialogHandler.removeEventListener('click', onClickPreventDefault);
+    window.data.dialogHandler.removeEventListener('click', onClickPreventDefault);
   };
-
 
   var onMouseDown = function (evt) {
     evt.preventDefault();
@@ -39,8 +33,8 @@
         y: moveEvt.clientY
       };
 
-      setupDialogElement.style.top = (setupDialogElement.offsetTop - shift.y) + 'px';
-      setupDialogElement.style.left = (setupDialogElement.offsetLeft - shift.x) + 'px';
+      window.data.setupDialogElement.style.top = (window.data.setupDialogElement.offsetTop - shift.y) + 'px';
+      window.data.setupDialogElement.style.left = (window.data.setupDialogElement.offsetLeft - shift.x) + 'px';
     };
 
     var onMouseUp = function (upEvt) {
@@ -51,7 +45,7 @@
 
       if (dragged) {
         onClickPreventDefault(evt);
-        dialogHandler.addEventListener('click', onClickPreventDefault);
+        window.data.dialogHandler.addEventListener('click', onClickPreventDefault);
       }
     };
 
@@ -59,34 +53,27 @@
     document.addEventListener('mouseup', onMouseUp);
   };
 
-  dialogHandler.addEventListener('mousedown', onMouseDown);
+  window.data.dialogHandler.addEventListener('mousedown', onMouseDown);
 
   // *************************************************************************
 
   // Перетаскиваем итем
 
-  var setupShop = document.querySelector('.setup-artifacts-shop');
-  var setupPlayer = document.querySelector('.setup-player');
-  var shopArtifactsCell = setupShop.querySelector('.setup-artifacts-cell');
-  var shopArtifactsCells = setupShop.querySelectorAll('.setup-artifacts-cell');
-  var playerArtifactsCells = setupPlayer.querySelectorAll('.setup-artifacts-cell');
-  var item = shopArtifactsCell.querySelector('img');
-
-  playerArtifactsCells.forEach(function (elem) {
+  window.data.playerArtifactsCells.forEach(function (elem) {
     elem.addEventListener('dragover', function () {
       event.preventDefault();
     });
     elem.addEventListener('drop', function () {
-      elem.appendChild(item);
+      elem.appendChild(window.data.item);
     });
   });
 
-  shopArtifactsCells.forEach(function (elem) {
+  window.data.shopArtifactsCells.forEach(function (elem) {
     elem.addEventListener('dragover', function () {
       event.preventDefault();
     });
     elem.addEventListener('drop', function () {
-      elem.appendChild(item);
+      elem.appendChild(window.data.item);
     });
   });
   // ************************************************************************
