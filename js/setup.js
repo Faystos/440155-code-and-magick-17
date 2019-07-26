@@ -93,7 +93,6 @@
 
 // Изменяем цвет fireball «огненный шар»
 (function () {
-  // var COLORSFIREBALLS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 
   var handlerClickSetupFireball = function (evt) {
     evt.preventDefault();
