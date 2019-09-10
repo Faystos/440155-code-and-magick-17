@@ -15,31 +15,44 @@
   var renderWizard = function (wizard) {
     var wizardElement = similarWizardTemplate.cloneNode(true);
 
-    wizardElement.querySelector('.setup-similar-label').textContent = wizard.name + wizard.surname;
-    wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
+    wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
+    wizardElement.querySelector('.wizard-coat').style.fill = wizard.colorCoat;
     wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
 
     return wizardElement;
   };
 
-  var fragment = document.createDocumentFragment();
-  for (var i = 0; i < 4; i++) {
+  // window.data.userDialog.querySelector('.setup-similar').classList.remove('hidden');
 
-    var wizard = {
-      name: window.data.WIZARD_NAMES[window.getRandomInt(0, window.data.WIZARD_NAMES.length - 1)],
-      surname: window.data.WIZARD_SURNAME[window.getRandomInt(0, window.data.WIZARD_SURNAME.length - 1)],
-      coatColor: window.data.WIZARD_COAT_COLOR[window.getRandomInt(0, window.data.WIZARD_COAT_COLOR.length - 1)],
-      eyesColor: window.data.WIZARD_EYES_COLOR[window.getRandomInt(0, window.data.WIZARD_EYES_COLOR.length - 1)]
-    };
+  var onError = function (message) {
+    console.error(message);
 
-    fragment.appendChild(renderWizard(wizard));
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
 
-  }
+    node.textContent = message;
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
 
-  window.data.similarListElement.appendChild(fragment);
+
+  var onSuccess = function (wizards) {
+    console.log(wizards);
+
+    var fragment = document.createDocumentFragment();
+    for (var i = 0; i < 4; i++) {
+      fragment.appendChild(renderWizard(wizards[i]));
+    }
+    window.data.similarListElement.appendChild(fragment);
+    window.data.userDialog.querySelector('.setup-similar').classList.remove('hidden');
+  };
+
+  window.load(window.data.URL_LOAD, onSuccess, onError);
 
 
-  window.data.userDialog.querySelector('.setup-similar').classList.remove('hidden');
 })();
 
 
