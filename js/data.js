@@ -29,6 +29,8 @@
   var WIZARD_EYES_COLOR = ['black', 'red', 'blue', 'yellow', 'green'];
   var COLORSFIREBALLS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
   var URL_LOAD = ' https://js.dump.academy/code-and-magick/data';
+  var URL_UPLOAD = ' https://js.dump.academy/code-and-magick';
+  var form = userDialog.querySelector('.setup-wizard-form');
 
   window.data = {
     setupDialogElement: setupDialogElement,
@@ -58,6 +60,8 @@
     WIZARD_COAT_COLOR: WIZARD_COAT_COLOR,
     WIZARD_EYES_COLOR: WIZARD_EYES_COLOR,
     COLORSFIREBALLS: COLORSFIREBALLS,
-    URL_LOAD: URL_LOAD
+    URL_LOAD: URL_LOAD,
+    URL_UPLOAD: URL_UPLOAD,
+    form: form
   };
 })();

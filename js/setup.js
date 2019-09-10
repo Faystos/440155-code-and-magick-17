@@ -22,11 +22,7 @@
     return wizardElement;
   };
 
-  // window.data.userDialog.querySelector('.setup-similar').classList.remove('hidden');
-
   var onError = function (message) {
-    console.error(message);
-
     var node = document.createElement('div');
     node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
     node.style.position = 'absolute';
@@ -39,7 +35,7 @@
   };
 
 
-  var onSuccess = function (wizards) {
+  var onLoad = function (wizards) {
     console.log(wizards);
 
     var fragment = document.createDocumentFragment();
@@ -47,10 +43,19 @@
       fragment.appendChild(renderWizard(wizards[i]));
     }
     window.data.similarListElement.appendChild(fragment);
-    window.data.userDialog.querySelector('.setup-similar').classList.remove('hidden');
+    document.querySelector('.setup-similar').classList.remove('hidden');
   };
 
-  window.load(window.data.URL_LOAD, onSuccess, onError);
+  window.load(window.data.URL_LOAD, onLoad, onError);
+
+  // ***************************************************************************
+  window.data.form.addEventListener('submit', function (evt) {
+    window.save(window.data.URL_UPLOAD, new FormData(window.data.form), function (response) {
+      document.querySelector('.setup-similar').classList.add('hidden');
+      console.log(response);
+    });
+    evt.preventDefault();
+  });
 
 
 })();
