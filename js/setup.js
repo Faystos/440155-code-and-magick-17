@@ -36,7 +36,7 @@
 
 
   var onLoad = function (wizards) {
-    console.log(wizards);
+    // console.log(wizards);
 
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < 4; i++) {
@@ -49,13 +49,16 @@
   window.load(window.data.URL_LOAD, onLoad, onError);
 
   // ***************************************************************************
-  window.data.form.addEventListener('submit', function (evt) {
-    window.save(window.data.URL_UPLOAD, new FormData(window.data.form), function (response) {
-      document.querySelector('.setup-similar').classList.add('hidden');
-      console.log(response);
-    });
-    evt.preventDefault();
-  });
+  var formSuccess = function () { };
+  var formError = function () { };
+
+
+  window.save(window.data, formSuccess, formError);
+
+
+
+
+
 
 
 })();
