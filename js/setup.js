@@ -21,7 +21,9 @@
 
     return wizardElement;
   };
+  // **************************Рабата с AJAX **********************************
 
+  // **************************Загрузка данных********************************
   var onError = function (message) {
     var node = document.createElement('div');
     node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
@@ -36,8 +38,6 @@
 
 
   var onLoad = function (wizards) {
-    // console.log(wizards);
-
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < 4; i++) {
       fragment.appendChild(renderWizard(wizards[i]));
@@ -47,20 +47,27 @@
   };
 
   window.load(window.data.URL_LOAD, onLoad, onError);
+  // ***************************************************************************
+
+  // ******************************Отправка данных******************************
+  var formSuccess = function () {
+    document.querySelector('.setup').classList.add('hidden');
+    window.data.form.querySelector('.setup-submit').disabled = false;
+
+  };
+
+  var formSubmit = function (evt) {
+    evt.preventDefault();
+    window.data.form.querySelector('.setup-submit').disabled = true;
+    var formData = new FormData(window.data.form);
+    window.save(window.data.URL_UPLOAD, formData, formSuccess, onError);
+  };
+
+  window.data.form.addEventListener('submit', formSubmit);
 
   // ***************************************************************************
-  var formSuccess = function () { };
-  var formError = function () { };
 
-
-  window.save(window.data, formSuccess, formError);
-
-
-
-
-
-
-
+  // ***************************************************************************
 })();
 
 
