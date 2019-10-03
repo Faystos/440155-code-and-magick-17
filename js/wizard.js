@@ -18,10 +18,7 @@
     if (window.data.countPress === window.data.COLORSFIREBALLS.length) {
       window.data.countPress = 0;
     }
-    wizard.onFirebalChange(newColor);
-
-    // fireballColor = newColor;
-    // updateWizards();
+    wizard.onFirebalChange(newColor);    
   };
 
   window.data.setupFireballWrap.addEventListener('click', handlerClickSetupFireball);
@@ -37,10 +34,7 @@
     if (window.data.countPress === window.data.WIZARD_EYES_COLOR.length) {
       window.data.countPress = 0;
     }
-    wizard.onEyesChange(newColor);
-
-    // eyesColor = newColor;
-    // updateWizards();
+    wizard.onEyesChange(newColor);   
   };
 
   window.data.setupWizard.addEventListener('click', handlerClickSetupWizardEyes);
@@ -50,7 +44,7 @@
 
   var handlerClickSetupWizardCoat = function (evt) {
     evt.preventDefault();
-    var newColor = window.data.WIZARD_COAT_COLOR[window.getRandomInt(0, window.data.WIZARD_COAT_COLOR.length - 1)];
+    var newColor = window.data.WIZARD_COAT_COLOR[window.getRandomInt(0, window.data.WIZARD_COAT_COLOR.length - 1)];    
     window.data.wizardCoat.style.fill = newColor;
     wizard.onCoatChange(newColor);
 
